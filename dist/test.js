@@ -10,7 +10,7 @@ const fetchNewRefreshToken = async () => {
     const refreshToken = process.env.REFRESH_TOKEN;
     const client = new client_cognito_identity_provider_1.CognitoIdentityProvider({ region: 'eu-west-1' });
     const results = await client.initiateAuth({
-        AuthFlow: 'REFRESH_TOKEN',
+        AuthFlow: client_cognito_identity_provider_1.AuthFlowType.REFRESH_TOKEN_AUTH,
         ClientId: process.env.CLIENT_ID,
         AuthParameters: {
             REFRESH_TOKEN: refreshToken
@@ -22,6 +22,7 @@ const fetchNewRefreshToken = async () => {
             'Expect updated RefreshToken that !== process.env.REFRESH_TOKEN' + '\n' +
             '--------------------------------------------------------------');
     }
+    return results.AuthenticationResult?.RefreshToken;
 };
 fetchNewRefreshToken();
 //# sourceMappingURL=test.js.map
